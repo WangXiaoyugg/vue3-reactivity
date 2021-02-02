@@ -7,7 +7,7 @@ import path from 'path'
 export default {
   input: 'src/index.ts', // 入口
   output: {              // 打包输出结果
-    name: 'reactivity',   // window.reactivity
+    name: 'VueReactivity',   // window.reactivity
     format: 'umd',        // 打包格式，兼容度最高的
     file: path.resolve(__dirname, 'dist/reactivity.js'), // 输出的文件路径
     sourcemap: true // 生成映射文件
