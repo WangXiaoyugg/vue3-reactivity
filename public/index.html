@@ -6,6 +6,31 @@
   <title>Vue3 Reactivity</title>
 </head>
 <body>
-  <script src="/dist/reactivity.js"></script>
+  <div id="app"></div>
+  <!-- <script src="/dist/reactivity.js"></script>-->
+  <script src="/node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
+  <script>
+    //  核心5个常用API, 源码总共是929行
+    // reactive, effect ref, computed, toRefs
+    const { reactive, effect, ref, computed, toRefs } = window.VueReactivity
+  
+    //  定义响应式数据
+    const person = reactive({ name: '小明', age: 20, sex: '男'})
+
+    // effect, 副作用，默认会执行一次收集依赖，
+    // 类似于watchEffect, 内部的依赖变了会重新执行
+    effect(() => {
+      const app = document.getElementById('app')
+      app.innerHTML = `姓名: ${person.name}, 年龄: ${person.age}`
+    })
+
+    // 改变不在effect中的依赖，effect不会重新执行
+    person.sex = '女'
+
+    // 改变在effect中的依赖，effect会重新执行
+    setTimeout(() => {
+      person.name = '大明'
+    }, 3000)
+  </script>
 </body>
 </html>
