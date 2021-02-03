@@ -1,6 +1,6 @@
 import { isObject, isSymbol, isArray, isInteger, hasOwn, hasChanged } from '../shared/index';
 import { reactive } from './reactive';
-
+import { track, trigger } from './effect'
 // 工厂函数，传入参数执行不同的操作，更加灵活
 function createGetter() {
   // 获取值执行
@@ -15,6 +15,7 @@ function createGetter() {
     
     // 进行依赖收集，
     console.log('数据进行获取操作')
+    track(target, key)
 
     // 当前取值是对象类型，再进行代理，懒递归
     if (isObject(res)) {
@@ -40,9 +41,10 @@ function createSetter() {
     // 进行数据更新，视图变化
     if (!hadKey) {
       console.log("新增属性操作")
+      trigger(target, 'add', key)
     } else if (hasChanged(value, oldVal)) {
       console.log('修改属性操作')
-
+      trigger(target, 'add', key, value, oldVal)
     }
 
     const res  = Reflect.set(target, key, value, receiver)

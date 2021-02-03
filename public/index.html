@@ -17,22 +17,24 @@
     //  定义响应式数据
     const person = reactive({ 
       name: '小明', age: 20, sex: '男', a: { b: 1 }})
-    const list = reactive([1,2,3])
-    setTimeout(() => {
-      person.name = '大明'
-      person.address = '合肥'
-    })
-    setTimeout(() => {
-      list[1] = 100
-      list[10] = 0
-    })
+    // const list = reactive([1,2,3])
+    // setTimeout(() => {
+    //   person.name = '大明'
+    //   person.address = '合肥'
+    // })
+    // setTimeout(() => {
+    //   list[1] = 100
+    //   list[10] = 0
+    // })
+
+    // effect使用了length是可以的，但是如果没有对length修改effect不会重新执行
 
     // effect, 副作用，默认会执行一次收集依赖，
     // 类似于watchEffect, 内部的依赖变了会重新执行
-    // effect(() => {
-    //   const app = document.getElementById('app')
-    //   app.innerHTML = `姓名: ${person.name}, 年龄: ${person.age}`
-    // })
+    effect(() => {
+      const app = document.getElementById('app')
+      app.innerHTML = `姓名: ${person.name}, 年龄: ${person.age}`
+    })
 
     // console.log(person.a)
 
@@ -40,9 +42,9 @@
     // person.sex = '女'
 
     // 改变在effect中的依赖，effect会重新执行
-    // setTimeout(() => {
-    //   person.name = '大明'
-    // }, 3000)
+    setTimeout(() => {
+      person.name = '大明'
+    }, 3000)
   </script>
 </body>
 </html>
