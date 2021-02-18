@@ -37,6 +37,8 @@ function createSetter() {
     // 数组通过索引赋值，判断索引是否小于数组的长度，小于说明修改，大于说明新增
     const hadKey = isArray(target) && isInteger(key) ? Number(key) < target.length :
      hasOwn(target, key);
+    
+     const res  = Reflect.set(target, key, value, receiver)
 
     // 进行数据更新，视图变化
     if (!hadKey) {
@@ -44,10 +46,9 @@ function createSetter() {
       trigger(target, 'add', key)
     } else if (hasChanged(value, oldVal)) {
       console.log('修改属性操作')
-      trigger(target, 'add', key, value, oldVal)
+      trigger(target, 'set', key, value, oldVal)
     }
 
-    const res  = Reflect.set(target, key, value, receiver)
     // vue2不支持新增属性，必须要使用是$set的API特殊处理
     // vue3 proxy支持新增属性，要区分是新增还是修改操作
     return res;

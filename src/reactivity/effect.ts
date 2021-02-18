@@ -89,7 +89,9 @@ export function trigger(target, type, key, val?, oldVal?) {
   } else {
     // 说明修改了key. 对象的处理
     if (key !== void 0) {
+    
       run(depsMap.get(key))
+
     } 
     switch (type) {
       case "add":
