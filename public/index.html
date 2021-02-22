@@ -7,44 +7,22 @@
 </head>
 <body>
   <div id="app"></div>
-  <script src="/dist/reactivity.js"></script>
-  <!-- <script src="/node_modules/@vue/reactivity/dist/reactivity.global.js"></script> -->
-  <script>
-    //  核心5个常用API, 源码总共是929行
-    // reactive, effect ref, computed, toRefs
-    const { reactive, effect, ref, computed } = window.VueReactivity
   
-    //  定义响应式数据
-    const person = reactive({ 
-      name: '小明', age: 20, sex: '男', a: { b: 1 }})
-    // const list = reactive([1,2,3])
-    // setTimeout(() => {
-    //   person.name = '大明'
-    //   person.address = '合肥'
-    // })
-    // setTimeout(() => {
-    //   list[1] = 100
-    //   list[10] = 0
-    // })
-
-    // effect使用了length是可以的，但是如果没有对length修改effect不会重新执行
-
-    // effect, 副作用，默认会执行一次收集依赖，
-    // 类似于watchEffect, 内部的依赖变了会重新执行
-    effect(() => {
-      const app = document.getElementById('app')
-      app.innerHTML = `姓名: ${person.name}, 年龄: ${person.age}`
-    })
-
-    // console.log(person.a)
-
-    // 改变不在effect中的依赖，effect不会重新执行
-    // person.sex = '女'
-
-    // 改变在effect中的依赖，effect会重新执行
-    setTimeout(() => {
-      person.name = '大明'
-    }, 3000)
+  <!-- <script src="/dist/reactivity.js"></script> -->
+  <!-- <script src="/node_modules/@vue/reactivity/dist/reactivity.global.js"></script> -->
+  <script src="../node_modules/vue/dist/vue.global.js"></script>
+  <script src="/dist/vue.js"></script>
+  <script>
+    const { createApp, reactive, h } = Vue
+    const App = {
+      setup() {
+        const state = reactive({name: 'china', age: 72})
+        return () => {
+          return h('div', {style: {color: 'red'}}, state.name + ':' + state.age)
+        }
+      }
+    }
+    createApp(App).mount('#app')
   </script>
 </body>
 </html>
