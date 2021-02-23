@@ -10,18 +10,23 @@
   
   <!-- <script src="/dist/reactivity.js"></script> -->
   <!-- <script src="/node_modules/@vue/reactivity/dist/reactivity.global.js"></script> -->
-  <script src="../node_modules/vue/dist/vue.global.js"></script>
+  <!-- <script src="../node_modules/vue/dist/vue.global.js"></script> -->
   <script src="/dist/vue.js"></script>
   <script>
     const { createApp, reactive, h } = Vue
     const App = {
       setup() {
-        const state = reactive({name: 'china', age: 72})
+        const state = reactive({ flag: true })
         setTimeout(() => {
-          state.name = 'wxy'
-        })
+          state.flag = !state.flag
+        }, 2000)
         return () => {
-          return h('div', {style: {color: 'red'}}, state.name + ':' + state.age)
+          return state.flag ?
+            h('div', { style: { color: 'red' }}, 'Hello'):
+            h('div', { style: { color: 'blue' }}, [
+              h('li', {}, 'Hello'),
+              h('li', {}, 'World'),
+            ])
         }
       }
     }
