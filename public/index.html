@@ -22,10 +22,31 @@
         }, 2000)
         return () => {
           return state.flag ?
-            h('div', { style: { color: 'red' }}, 'Hello'):
-            h('div', { style: { color: 'blue' }}, [
-              h('li', {}, 'Hello'),
-              h('li', {}, 'World'),
+            h('div', { style: { color: 'black' }}, [
+              h('li', {key: 'A', style: { background: 'red' }}, 'A'),
+              h('li', {key: 'B', style: { background: 'green' }}, 'B'),
+
+              h('li', {key: 'C', style: { background: 'yellow' }}, 'C'),
+              h('li', {key: 'D', style: { background: 'orange' }}, 'D'),
+              h('li', {key: 'E', style: { background: 'orange' }}, 'E'),
+              h('li', {key: 'Q', style: { background: 'orange' }}, 'Q'),
+
+              
+              h('li', {key: 'F', style: { background: 'orange' }}, 'F'),
+              h('li', {key: 'G', style: { background: 'orange' }}, 'G'),
+            ]):
+            h('div', { style: { color: 'white' }}, [
+              h('li', {key: 'A', style: { background: 'red' }}, 'A'),
+              h('li', {key: 'B', style: { background: 'green' }}, 'B'),
+              
+              h('li', {key: 'D', style: { background: 'orange' }}, 'D'),
+              h('li', {key: 'E', style: { background: 'orange' }}, 'E'),
+              h('li', {key: 'C', style: { background: 'orange' }}, 'C'),
+              h('li', {key: 'H', style: { background: 'orange' }}, 'H'),
+
+
+              h('li', {key: 'F', style: { background: 'orange' }}, 'F'),
+              h('li', {key: 'G', style: { background: 'orange' }}, 'G'),
             ])
         }
       }
