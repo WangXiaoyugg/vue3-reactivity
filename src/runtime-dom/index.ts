@@ -12,6 +12,7 @@ function ensureRenderer(rootComponent) {
     const app = createRenderer(renderOptions).createApp(rootComponent)
     const { mount } = app;
     app.mount = function (container) {
+        container = document.querySelector(container)
         // 挂载前先把容器清空
         container.innerHTML = ''
         mount(container)

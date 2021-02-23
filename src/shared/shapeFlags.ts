@@ -4,5 +4,4 @@ export const enum ShapeFlags {
     STATEFUL_COMPONENT = 1 << 2 , // 4
     TEXT_CHILDREN = 1 << 3,
     ARRAY_CHILDREN = 1 << 4,
-    
 }

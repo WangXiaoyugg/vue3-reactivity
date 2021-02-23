@@ -17,11 +17,15 @@
     const App = {
       setup() {
         const state = reactive({name: 'china', age: 72})
+        setTimeout(() => {
+          state.name = 'wxy'
+        })
         return () => {
           return h('div', {style: {color: 'red'}}, state.name + ':' + state.age)
         }
       }
     }
+    
     createApp(App).mount('#app')
   </script>
 </body>

@@ -1,5 +1,9 @@
+import { isArray, isObject, isString, ShapeFlags } from '../shared'
 export function createVnode(type, props:any={}, children=null) {
     // type是什么类型
+    const shapeFlag = isString(type) ? ShapeFlags.ELEMENT :
+        isObject(type) ? ShapeFlags.STATEFUL_COMPONENT : 0;
+
     const vnode = { //虚拟节点标识dom结构，也可以表示组件
         type,
         props,
@@ -7,7 +11,14 @@ export function createVnode(type, props:any={}, children=null) {
         component: null,
         el: null,
         key: props.key,
-        shapFlag: '', // 虚拟节点的类型 元素，文本
+        shapeFlag: shapeFlag, // 虚拟节点的类型 元素，文本
     }
+
+    if (isArray(children)) {
+        vnode.shapeFlag |=  ShapeFlags.ARRAY_CHILDREN
+    } else {
+        vnode.shapeFlag |= ShapeFlags.TEXT_CHILDREN
+    }
+    
     return vnode;
 }
